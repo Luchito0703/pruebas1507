@@ -5,7 +5,7 @@ services:
   # FastAPI application
   app:
     build: .
-    Container_name: fastapi-app
+    container_name: fastapi-app
     ports:
       - "5000:5000"
     networks:
