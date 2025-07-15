@@ -5,13 +5,13 @@ services:
   # FastAPI application
   app:
     build: .
-    container_name: fastapi-app
+    container_name: fastapi-app  # Cambié Container_name a container_name
     ports:
       - "5000:5000"
     networks:
       - app-network
 
-  #Monitoreo con Prometheus, Grafana y creacion Nexus
+  # Monitoreo con Prometheus, Grafana y creación Nexus
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -23,16 +23,16 @@ services:
       - app-network
 
   grafana:
-      image: grafana/grafana:latest
-      container_name: grafana
-      ports:
-        - "3000:3000"
-      volumes:
-        - grafana-storage:/var/lib/grafana
-      networks:
-        - app-network
-      depends_on:
-        - prometheus
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - app-network
+    depends_on:
+      - prometheus
 
   nexus:
     image: sonatype/nexus3
@@ -50,4 +50,3 @@ volumes:
 
 networks:
   app-network:
-  
