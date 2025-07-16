@@ -45,7 +45,7 @@ services:
       - app-network
 
 volumes:
-  grafana-data:
+  grafana-storage:
   nexus-data:
 
 networks:
