@@ -59,12 +59,11 @@ jobs:
 
           # Clonar si no existe
           if [ ! -d "proyecticoprueba" ]; then
-            git clone https://github.com/Luchito0703/proyecticoprueba.git
+            git clone https://github.com/Luchito0703/pruebas1507.git
           fi
 
-          git pull origin main
           cd proyecticoprueba
-          
+          git pull origin main
 
           # Verificar docker-compose.yml
           if [ ! -f "docker-compose.yml" ]; then
@@ -84,5 +83,3 @@ jobs:
       run: |
         docker tag fastapi-app ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
         docker push ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
-
-      #Holi funcione
