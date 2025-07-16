@@ -62,8 +62,9 @@ jobs:
             git clone https://github.com/Luchito0703/proyecticoprueba.git
           fi
 
-          cd proyecticoprueba
           git pull origin main
+          cd proyecticoprueba
+          
 
           # Verificar docker-compose.yml
           if [ ! -f "docker-compose.yml" ]; then
@@ -83,3 +84,5 @@ jobs:
       run: |
         docker tag fastapi-app ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
         docker push ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
+
+      #Holi funcione
