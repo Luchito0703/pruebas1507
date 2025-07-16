@@ -2,9 +2,9 @@ name: Login and push nexus
 
 on:
   workflow_run:
-    workflows: ["CI/CD + Deploy en EC2 (Amazon Linux)"]
+    workflows: ["CI/CD + Deploy en EC2 (Amazon Linux)"]  # Nombre del primer workflow
     types:
-      - completed  # Espera que "Build Pipeline" termine
+      - completed  # Se ejecutará cuando el primer pipeline termine
 
 jobs:
   login-and-push:
@@ -23,8 +23,9 @@ jobs:
           password: ${{ secrets.NEXUS_PASSWORD }}
       
       - name: Esperar configuracion
-        run: 
-          sleep 60
+        run: |
+          echo "Esperando 60 segundos antes de continuar..."
+          sleep 60  # Espera de 60 segundos para asegurar la sincronización
 
       - name: Construir y subir imagen a Nexus
         uses: docker/build-push-action@v5
