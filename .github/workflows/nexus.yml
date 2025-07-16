@@ -1,31 +1,33 @@
-name: Login and Push Nexus
+name: Login and push nexus
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  Login-and-push-nexus:
+  login-and-push:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Configure Docker for insecure registry
-      run: |
-        # Crea el archivo de configuración de Docker para permitir la conexión HTTP a tu Nexus
-        echo '{"insecure-registries": ["${{ secrets.NEXUS_DOCKER_REPO_URL }}"]}' | sudo tee /etc/docker/daemon.json
-        # Verifica si Docker está en ejecución, si no, intenta iniciarlo
-        if ! systemctl is-active --quiet docker; then
-          sudo systemctl start docker
-        fi
+      - name: Configure Docker for insecure registry
+        run: |
+          # Crea el archivo de configuración de Docker para permitir la conexión HTTP a tu Nexus
+          echo '{"insecure-registries": ["${{ secrets.NEXUS_DOCKER_REPO_URL }}"]}' | sudo tee /etc/docker/daemon.json
+          # Reinicia el servicio de Docker para que aplique la nueva configuración
+          sudo service docker restart
 
-    - name: Log in to Nexus
-      uses: docker/login-action@v3
-      with:
+      - name: Log in to Nexus
+        uses: docker/login-action@v3
+        with:
           registry: ${{ secrets.NEXUS_DOCKER_REPO_URL }}
           username: ${{ secrets.NEXUS_USERNAME }}
           password: ${{ secrets.NEXUS_PASSWORD }}
 
-    - name: Push imagen a Nexus
-      run: |
-        docker tag fastapi-app ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
-        docker push ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:latest
+            ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:${{ github.sha }}
