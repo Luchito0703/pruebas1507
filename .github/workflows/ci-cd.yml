@@ -58,11 +58,11 @@ jobs:
           cd ~
 
           # Clonar si no existe
-          if [ ! -d "proyecticoprueba" ]; then
+          if [ ! -d "pruebas1507" ]; then
             git clone https://github.com/Luchito0703/pruebas1507.git
           fi
 
-          cd proyecticoprueba
+          cd pruebas1507
           git pull origin main
 
           # Verificar docker-compose.yml
