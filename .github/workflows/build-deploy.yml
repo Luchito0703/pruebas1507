@@ -74,16 +74,3 @@ jobs:
           # Ejecutar el stack
           docker-compose down
           docker-compose up -d --build
-          
-    - name: Log in to Nexus
-      uses: docker/login-action@v3
-      with:
-          registry: ${{ secrets.NEXUS_DOCKER_REPO_URL }}
-          username: ${{ secrets.NEXUS_USERNAME }}
-          password: ${{ secrets.NEXUS_PASSWORD }}
-
-
-    - name: Push imagen a Nexus
-      run: |
-        docker tag fastapi-app ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
-        docker push ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
