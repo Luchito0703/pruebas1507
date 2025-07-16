@@ -20,6 +20,10 @@ jobs:
           registry: ${{ secrets.NEXUS_DOCKER_REPO_URL }}
           username: ${{ secrets.NEXUS_USERNAME }}
           password: ${{ secrets.NEXUS_PASSWORD }}
+      
+      - name: Esperar configuracion
+        run: 
+          sleep 60
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -29,4 +33,3 @@ jobs:
           tags: |
             ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:latest
             ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:${{ github.sha }}
-            
