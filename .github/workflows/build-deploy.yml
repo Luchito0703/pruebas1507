@@ -1,4 +1,4 @@
-name: CI/CD + Deploy en EC2 (Amazon Linux)
+name: Construccion-en-la-ec2
 
 on:
   push:
