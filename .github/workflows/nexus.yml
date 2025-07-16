@@ -29,3 +29,4 @@ jobs:
           tags: |
             ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:latest
             ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:${{ github.sha }}
+            
