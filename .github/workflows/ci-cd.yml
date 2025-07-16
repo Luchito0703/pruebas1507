@@ -85,5 +85,5 @@ jobs:
 
     - name: Push imagen a Nexus
       run: |
-        docker tag fastapi-app ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
-        docker push ${{ secrets.EC2_HOST }}:8081/fastapi-docker/fastapi-app:latest
+        docker tag fastapi-app ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
+        docker push ${{ secrets.EC2_HOST }}:8082/fastapi-docker/fastapi-app:latest
