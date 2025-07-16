@@ -25,11 +25,11 @@ jobs:
         run: 
           sleep 60
 
-      - name: Build and push Docker image
+      - name: Construir y subir imagen a Nexus
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:latest
+            ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-docker/fastapi-app:latest
             ${{ secrets.NEXUS_DOCKER_REPO_URL }}/fastapi-store-app:${{ github.sha }}
