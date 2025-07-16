@@ -10,6 +10,7 @@ services:
       - "5000:5000"
     networks:
       - app-network
+    restart: unless-stopped
 
   #Monitoreo con Prometheus, Grafana y creacion Nexus
   prometheus:
@@ -21,6 +22,7 @@ services:
       - "9090:9090"
     networks:
       - app-network
+    restart: unless-stopped
 
   grafana:
       image: grafana/grafana:latest
@@ -33,16 +35,19 @@ services:
         - app-network
       depends_on:
         - prometheus
+      restart: unless-stopped
 
   nexus:
     image: sonatype/nexus3
     container_name: nexus
     ports:
-      - "8081:8081"  # Interfaz de administración web
+      - "8081:8081"
+      - "8082:8082"  # Interfaz de administración web
     volumes:
       - nexus-data:/nexus-data
     networks:
       - app-network
+    restart: unless-stopped
 
 volumes:
   grafana-storage:

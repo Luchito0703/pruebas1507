@@ -9,10 +9,10 @@ jobs:
   login-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure Docker for insecure registry
+      - name: Configurar Docker para usar Nexus por HTTP
         run: |
-          # Crea el archivo de configuración de Docker para permitir la conexión HTTP a tu Nexus
-          echo '{"insecure-registries": ["${{ secrets.NEXUS_DOCKER_REPO_URL }}"]}' | sudo tee /etc/docker/daemon.json
+          echo "{ \"insecure-registries\": [\"${{ secrets.NEXUS_DOCKER_REPO_URL }}\"] }" | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
 
       - name: Log in to Nexus
         uses: docker/login-action@v3
